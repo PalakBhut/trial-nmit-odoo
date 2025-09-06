@@ -4,27 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoFinds - Login</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Login Page Specific Styles -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
     body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1500&q=80")
+     background: url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1500&q=80")
                   no-repeat center center/cover;
       position: relative;
     }
 
-    /* Overlay for readability */
+
     body::before {
       content: "";
       position: absolute;
@@ -32,75 +22,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(245, 245, 220, 0.65);
+      background: rgba(245, 245, 220, 0.65); /* overlay */
       z-index: 0;
     }
 
+    /* Ensure the container stays above overlay */
     .container {
-      width: 100%;
-      max-width: 380px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      z-index: 1;
       position: relative;
-      text-align: center;
-    }
-
-    .logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      margin: 0 auto 1.5rem auto;
-     background: url("logo.jpeg") no-repeat center/cover;
-
-      border: 3px solid #2E7D32;
-    }
-
-    .form-group {
-      margin-bottom: 1.2rem;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-      color: #333;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: #2E7D32;
-      box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 0.9rem;
-      background: #2E7D32;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #1b5e20;
+      z-index: 1;
     }
   </style>
 </head>
@@ -108,14 +37,16 @@
 
   <div class="container">
     <div class="logo"></div>
+<br>
+ <h1 class="title">Login</h1>
     <form>
       <div class="form-group">
-        <label>Email / Username:</label>
-        <input type="text" placeholder="Enter your email or username" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
       </div>
       <div class="form-group">
-        <label>Password:</label>
-        <input type="password" placeholder="Enter your password" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
       </div>
       <button type="submit" class="btn">Login</button>
     </form>
