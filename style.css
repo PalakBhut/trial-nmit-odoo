@@ -55,14 +55,14 @@ body::before {
 
 /* Logo */
 .logo {
-      width: 80px;
-      height: 80px;
-      border-radius: 70%;
-      margin: 0 auto 1.5rem auto;
-     background: url("logo.jpg") no-repeat center/cover;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+  background: url("logo.jpeg") no-repeat center/cover;
+  border: 3px solid #2E7D32;
+}
 
-      border: 3px solid #2E7D32;
-    }
 
 /* Form Group */
 .form-group {
@@ -127,4 +127,28 @@ body.login-page::before {
 
 .btn:hover {
   background: #1b5e20;
+}
+/* Make container elements stretch full width */
+.container, 
+.wrapper {
+  width: 100%;
+  max-width: 100% !important;   /* override old max-width */
+  margin: 0 auto;
+  padding: 1rem;  /* keep a little breathing space */
+  box-sizing: border-box;
+}
+
+/* Ensure images scale properly */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive grid */
+.grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  width: 100%;
 }
