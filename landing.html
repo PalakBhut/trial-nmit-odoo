@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoFinds - Home</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url("https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1500&q=80") 
+                  no-repeat center center/cover;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(245, 245, 220, 0.65);
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    /* Content wrapper */
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+      width: 100%;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2E7D32;
+    }
+
+    /* Search bar */
+    .search-bar {
+      display: flex;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-bar input {
+      flex: 1;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      padding: 1rem 1.2rem;
+      border: none;
+      background: #2E7D32;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Category filters */
+    .categories {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .categories button {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      background: #2E7D32;
+      color: #fff;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .categories button:hover {
+      background: #1b5e20;
+    }
+
+    /* Product grid */
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.7rem;
+    }
+
+    .product h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #333;
+    }
+
+    .product p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2E7D32;
+    }
+
+    /* Floating Add Button */
+    .add-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #2E7D32;
+      color: #fff;
+      font-size: 2rem;
+      width: 65px;
+      height: 65px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      z-index: 2;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .add-btn:hover {
+      background: #1b5e20;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="wrapper">
+      <!-- Header -->
+      <div class="header">
+        <div class="logo"></div>
+        <h1>EcoFinds</h1>
+        <div class="cart">🛒</div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search products...">
+        <button>Search</button>
+      </div>
+
+      <!-- Categories -->
+      <div class="categories">
+        <button>All</button>
+        <button>Electronics</button>
+        <button>Fashion</button>
+        <button>Home</button>
+        <button>Books</button>
+      </div>
+
+      <!-- Products -->
+      <div class="product-list">
+        <div class="product">
+          <img src="https://via.placeholder.com/200x160" alt="Product">
+          <h3>Product 1</h3>
+          <p>$20.00</p>
+        </div>
+        <div class="product">
+          <img src="https://via.placeholder.com/200x160" alt="Product">
+          <h3>Product 2</h3>
+          <p>$35.00</p>
+        </div>
+        <div class="product">
+          <img src="https://via.placeholder.com/200x160" alt="Product">
+          <h3>Product 3</h3>
+          <p>$15.00</p>
+        </div>
+        <div class="product">
+          <img src="https://via.placeholder.com/200x160" alt="Product">
+          <h3>Product 4</h3>
+          <p>$42.00</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Floating Add Button -->
+  <button class="add-btn">+</button>
+
+</body>
+</html>
