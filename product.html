@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    /* Cart with Badge */
+    .cart-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .cart-icon {
+      font-size: 1.7rem;
+      color: #2E7D32;
+      cursor: pointer;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: #d32f2f;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    /* Slider */
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Navigation Arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #fff;
+      background: rgba(0,0,0,0.4);
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
+
+    /* Dots */
+    .dots {
+      text-align: center;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .dots span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .dots .active {
+      background: #2E7D32;
+    }
+
+    /* Product Description */
+    .description {
+      text-align: left;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo"></div>
+      <div class="cart-wrapper">
+        <i class="fas fa-shopping-cart cart-icon"></i>
+        <span class="cart-badge">1</span>
+      </div>
+    </div>
+
+    <h2 class="title">Product Page</h2>
+
+    <!-- Slider -->
+    <div class="slider">
+      <div class="slides" id="slides">
+        <!-- Replace with your website's product images -->
+        <img src="image1.jpeg" alt="Product 1">
+        <img src="image2.jpeg" alt="Product 2">
+        <img src="image3.jpeg" alt="Product 3">
+        <img src="image4.jpeg" alt="Product 4">
+      </div>
+
+      <!-- Arrows -->
+      <span class="arrow left" onclick="prevSlide()">&#10094;</span>
+      <span class="arrow right" onclick="nextSlide()">&#10095;</span>
+    </div>
+
+    <!-- Dots -->
+    <div class="dots" id="dots"></div>
+
+    <!-- Product Description -->
+    <div class="description">
+      <h3>Product Name</h3>
+      <p>
+        Detailed description of the product goes here.  
+        Add features, specifications, and required details.
+      </p>
+      <ul>
+        <li>Feature A</li>
+        <li>Feature B</li>
+        <li>Feature C</li>
+      </ul>
+      <p><strong>Price:</strong> $59.99</p>
+    </div>
+
+    <!-- Add to Cart -->
+    <button class="btn" onclick="window.location.href='cart.html'">Add to Cart</button>
+
+  </div>
+
+  <script>
+    const slides = document.getElementById("slides");
+    const dotsContainer = document.getElementById("dots");
+    const images = slides.querySelectorAll("img");
+    let index = 0;
+
+    // Create dots dynamically
+    images.forEach((_, i) => {
+      const dot = document.createElement("span");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => showSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll(".dot");
+
+    function showSlide(i) {
+      index = i;
+      slides.style.transform = `translateX(-${i * 100}%)`;
+      dots.forEach(dot => dot.classList.remove("active"));
+      dots[i].classList.add("active");
+    }
+
+    function nextSlide() {
+      index = (index + 1) % images.length;
+      showSlide(index);
+    }
+
+    function prevSlide() {
+      index = (index - 1 + images.length) % images.length;
+      showSlide(index);
+    }
+
+    // Auto slide every 5s
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>
