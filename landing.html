@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoFinds – Home</title>
+
+  <style>
+  :root {
+    --brand:#2E7D32;
+    --text:#222;
+    --muted:#666;
+    --bg:#fafafa;
+    --card:#fff;
+    --shadow:0 6px 18px rgba(0,0,0,.08);
+    --radius:14px;
+  }
+
+  html,body { height:100%; margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',system-ui,Arial,sans-serif; }
+
+  /* Drawer */
+  .drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    background: #fff;
+    box-shadow: 2px 0 16px rgba(0,0,0,.18);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    padding: 1rem;
+  }
+  .drawer.open {
+    transform: translateX(0);
+  }
+  .drawer a {
+    display: block;
+    padding: 10px 0;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  /* Drawer overlay */
+  .drawer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 900;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .drawer-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Menu button */
+  .menu-btn {
+    width: 36px;
+    height: 30px;
+    position: relative;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .brand { justify-self:center; display:flex; align-items:center; gap:10px; }
+  .brand-badge {
+    width:40px; height:40px; border-radius:50%;
+    background:url("logo.jpeg") center/cover no-repeat, var(--brand);
+    border:3px solid var(--brand);
+  }
+  .brand-name { font-weight:800; letter-spacing:.3px; color:var(--brand); font-size:1.25rem; }
+  .actions { justify-self:end; display:flex; align-items:center; gap:18px; }
+  .cart { position:relative; font-size:22px; cursor:pointer; }
+  .cart-badge {
+    position:absolute; top:-6px; right:-10px;
+    background:#e53935; color:#fff; border-radius:999px;
+    font-size:11px; padding:2px 6px; font-weight:700; min-width:18px; text-align:center;
+  }
+
+  /* ---------- Filters Row ---------- */
+  .filters { background:#fff; box-shadow:var(--shadow); }
+  .filters-inner {
+    margin:0; padding:14px 20px;
+    display:grid; gap:12px; grid-template-columns:1fr auto;
+  }
+  .search {
+    display:flex; align-items:center;
+    border:1px solid #ddd; border-radius:10px; overflow:hidden; background:#fff;
+  }
+  .search input {
+    flex:1; padding:12px 14px; border:0; outline:0; font-size:15px;
+  }
+  .search button {
+    padding:12px 16px; border:0; background:var(--brand); color:#fff; font-weight:700; cursor:pointer;
+  }
+  .chips { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .chip {
+    padding:10px 14px; border-radius:999px; border:1px solid #dfe4e7; background:#fff;
+    cursor:pointer; font-weight:600; font-size:14px;
+  }
+  .chip.active, .chip:hover { background:var(--brand); color:#fff; border-color:var(--brand); }
+
+  /* ---------- Content / Grid ---------- */
+  .wrapper {
+    margin:20px auto 80px;
+    padding:0 20px;
+    max-width:1400px;
+  }
+  .meta { color:var(--muted); font-size:14px; margin-bottom:10px; }
+  .grid {
+    display:grid; gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  }
+  .card {
+    background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    display:flex; flex-direction:column; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover { transform:translateY(-4px); box-shadow:0 10px 26px rgba(0,0,0,.12); }
+  .card img { width:100%; height:170px; object-fit:cover; }
+  .card-body { padding:12px 14px; display:flex; flex-direction:column; gap:8px; }
+  .title { font-weight:700; font-size:16px; line-height:1.2; }
+  .price { color:var(--brand); font-weight:800; }
+  .qty { margin-top:6px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .qty-ctrl { display:flex; align-items:center; gap:10px; }
+  .btn-round {
+    width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
+    font-size:20px; line-height:0; color:#fff; background:var(--brand);
+  }
+  .btn-round:disabled { opacity:.4; cursor:not-allowed; }
+
+  /* Floating Add */
+  .fab {
+    position:fixed; right:22px; bottom:22px; z-index:950;
+    width:64px; height:64px; border-radius:50%; border:0; cursor:pointer;
+    font-size:30px; color:#fff; background:var(--brand); box-shadow:0 10px 24px rgba(0,0,0,.2);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal {
+    position:fixed; inset:0; display:none; place-items:center;
+    background:rgba(0,0,0,.35); z-index:1200;
+  }
+  .modal.show { display:grid; }
+  .modal-card {
+    width:min(520px,92vw); background:#fff; border-radius:14px; padding:18px; box-shadow:var(--shadow);
+    display:grid; gap:10px;
+  }
+  .modal-card h3 { margin:0 0 6px; }
+  .row { display:grid; gap:8px; }
+  .row input, .row select {
+    padding:10px 12px; border:1px solid #ddd; border-radius:10px; font-size:14px;
+  }
+  .modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:6px; }
+  .btn { padding:10px 14px; border-radius:10px; border:0; font-weight:700; cursor:pointer; }
+  .btn.primary { background:var(--brand); color:#fff; }
+  .btn.ghost { background:#f1f1f1; }
+  </style>
+</head>
+<body>
+
+  <!-- Drawer -->
+  <aside class="drawer" id="drawer">
+    <div class="drawer-inner">
+      <h3>Navigate</h3>
+      <a href="landing.html">Home</a>
+      <a href="listings.html">My Listings</a>
+      <a href="add-listings.html">Add Product</a>
+      <a href="product.html">Product Page</a>
+      <a href="cart.html">Cart</a>
+      <a href="myPurchases.html">My Purchases</a>
+      <a href="userDashboard.html">User Dashboard</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Signup</a>
+    </div>
+  </aside>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner" style="display:grid;grid-template-columns:50px 1fr 90px;align-items:center;padding:10px 20px;gap:10px;">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div class="brand-name">EcoFinds</div>
+      </div>
+      <div class="actions">
+        <div class="cart">🛒 <span class="cart-badge" id="cartBadge">0</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filters Row -->
+  <section class="filters">
+    <div class="filters-inner">
+      <form class="search" id="searchForm">
+        <input type="search" id="searchInput" placeholder="Search products…" />
+        <button type="submit">Search</button>
+      </form>
+      <div class="chips" id="chipBar"></div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <main class="wrapper">
+    <div class="meta" id="resultMeta">Showing 0 items</div>
+    <section class="grid" id="grid"></section>
+  </main>
+
+  <!-- Floating Add -->
+  <button class="fab" id="fab">+</button>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h3>Add a new product</h3>
+      <div class="row"><label>Name</label><input id="addName"/></div>
+      <div class="row">
+        <label>Category</label>
+        <select id="addCategory">
+          <option>Electronics</option><option>Fashion</option><option>Home</option><option>Books</option><option>Other</option>
+        </select>
+      </div>
+      <div class="row"><label>Price</label><input id="addPrice" type="number" min="0" step="0.01"/></div>
+      <div class="row"><label>Image URL</label><input id="addImg"/></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="cancelAdd">Cancel</button>
+        <button class="btn primary" id="saveAdd">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const drawer = document.getElementById("drawer");
+    const drawerOverlay = document.getElementById("drawerOverlay");
+    const menuBtn = document.getElementById("menuBtn");
+
+    menuBtn.onclick = () => {
+      drawer.classList.toggle("open");
+      menuBtn.classList.toggle("open");
+      drawerOverlay.classList.toggle("show");
+    };
+
+    drawerOverlay.onclick = () => {
+      drawer.classList.remove("open");
+      menuBtn.classList.remove("open");
+      drawerOverlay.classList.remove("show");
+    };
+
+    // Close drawer when clicking a link
+    document.querySelectorAll(".drawer a").forEach(link => {
+      link.addEventListener("click", () => {
+        drawer.classList.remove("open");
+        menuBtn.classList.remove("open");
+        drawerOverlay.classList.remove("show");
+      });
+    });
+
+    // ----- Product Grid Demo -----
+    const products = [
+      {id:1,name:"Solar Power Bank",price:29.99,category:"Electronics",img:"image1.jpeg"},
+      {id:2,name:"Organic Cotton Tote",price:12.50,category:"Fashion",img:"image2.jpeg"},
+      {id:3,name:"Bamboo Toothbrush Set",price:8.99,category:"Home",img:"image3.jpeg"},
+      {id:4,name:"Upcycled Notebook",price:6.75,category:"Books",img:"image4.jpeg"},
+    ];
+    const quantities = new Map();
+    let activeCategory="All",searchText="";
+    const grid=document.getElementById("grid"),cartBadge=document.getElementById("cartBadge"),resultMeta=document.getElementById("resultMeta"),chipBar=document.getElementById("chipBar");
+
+    function renderChips(){
+      const cats=["All",...new Set(products.map(p=>p.category))];
+      chipBar.innerHTML="";
+      cats.forEach(c=>{
+        const b=document.createElement("button");
+        b.className="chip"+(c===activeCategory?" active":"");
+        b.textContent=c;
+        b.onclick=()=>{activeCategory=c;render();};
+        chipBar.appendChild(b);
+      });
+    }
+    function formatPrice(v){return "$"+Number(v).toFixed(2);}
+    function getFiltered(){return products.filter(p=>{
+      const inCat=activeCategory==="All"||p.category===activeCategory;
+      const inSearch=p.name.toLowerCase().includes(searchText.toLowerCase());
+      return inCat&&inSearch;});}
+    function render(){
+      const list=getFiltered();
+      grid.innerHTML="";
+      resultMeta.textContent=list.length?`Showing ${list.length} item${list.length>1?"s":""}`:"No products found.";
+      list.forEach(p=>{
+        const c=quantities.get(p.id)||0;
+        const card=document.createElement("article");
+        card.className="card";
+        card.innerHTML=`
+          <img src="${p.img}" alt="${p.name}"/>
+          <div class="card-body">
+            <div class="title">${p.name}</div>
+            <div class="price">${formatPrice(p.price)}</div>
+            <div class="qty">
+              <div class="qty-ctrl">
+                <button class="btn-round" data-act="dec" data-id="${p.id}" ${c===0?"disabled":""}>−</button>
+                <strong id="qty-${p.id}">${c}</strong>
+                <button class="btn-round" data-act="inc" data-id="${p.id}">+</button>
+              </div>
+              <small style="color:var(--muted)">${p.category}</small>
+            </div>
+          </div>`;
+        grid.appendChild(card);
+      });
+      updateCart(); renderChips();
+    }
+    function updateCart(){cartBadge.textContent=[...quantities.values()].reduce((a,b)=>a+b,0);}
+    grid.addEventListener("click",e=>{
+      const b=e.target.closest("button.btn-round");if(!b)return;
+      const id=+b.dataset.id,act=b.dataset.act,c=quantities.get(id)||0,n=Math.max(0,c+(act==="inc"?1:-1));
+      quantities.set(id,n);
+      document.getElementById(`qty-${id}`).textContent=n;
+      b.closest(".card").querySelector('[data-act="dec"]').disabled=n===0;
+      updateCart();
+    });
+
+    document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();searchText=document.getElementById("searchInput").value.trim();render();});
+    render();
+  </script>
+</body>
+</html>
