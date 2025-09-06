@@ -3,57 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoFinds - My Listings</title>
-  <link rel="stylesheet" href="style.css"> <!-- reuse your CSS -->
+  <title>EcoFinds - Previous Purchases</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Extra styles for listing page */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+
+    /* Header */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+    .branding {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .branding img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .branding h2 {
+      color: #2E7D32;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
     }
     .cart-icon {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       background: url('https://cdn-icons-png.flaticon.com/512/1170/1170678.png') no-repeat center/cover;
       cursor: pointer;
     }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      color: #444;
+    }
+
+    /* Search */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
     .search-bar {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 8px;
+      width: 90%;
+      padding: 0.9rem 1rem;
+      padding-left: 2.8rem;
+      border-radius: 30px;
       border: 1px solid #ccc;
-      margin-bottom: 1rem;
+      font-size: 1rem;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+      transition: 0.2s;
+    }
+    .search-bar:focus {
+      border-color: #2E7D32;
+      box-shadow: 0 0 0 3px rgba(46,125,50,0.2);
       outline: none;
     }
-    .action-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
+    .search-wrapper::before {
+      content: "🔍";
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      color: #777;
     }
-    .action-buttons button {
-      flex: 1;
-      margin: 0 0.3rem;
-      padding: 0.6rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      background: #2E7D32;
-      color: white;
-      cursor: pointer;
-    }
-    .action-buttons button:hover {
-      background: #1b5e20;
-    }
+
+    /* Product Cards */
     .product-card {
       display: flex;
       align-items: center;
       border: 1px solid #ddd;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 1rem;
       margin-bottom: 1rem;
       background: #fff;
+      transition: 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
     .product-img {
       width: 80px;
@@ -61,17 +111,17 @@
       border-radius: 10px;
       background: #ccc url('https://cdn-icons-png.flaticon.com/512/679/679922.png') no-repeat center/cover;
       margin-right: 1rem;
-    }
-    .product-info {
-      text-align: left;
+      flex-shrink: 0;
     }
     .product-info h4 {
-      margin-bottom: 0.3rem;
+      margin: 0 0 0.3rem;
       color: #2E7D32;
+      font-size: 1.1rem;
     }
     .product-info p {
       font-size: 0.9rem;
       margin: 2px 0;
+      color: #555;
     }
   </style>
 </head>
@@ -80,21 +130,19 @@
   <div class="container">
     <!-- Header -->
     <div class="header">
-      <h2 style="color:#2E7D32;">EcoFinds</h2>
-      <div class="cart-icon"></div>
+      <div class="branding">
+        <img src="logo.jpg" alt="EcoFinds Logo">
+        <h2>EcoFinds</h2>
+      </div>
+      <div class="cart-icon" onclick="window.location.href='cart.html'"></div>
     </div>
 
-    <!-- Page Title -->
-    <h3 style="text-align:center; margin-bottom:1rem;">Previous Purchase</h3>
+    <!-- Title -->
+    <h3>Previous Purchases</h3>
 
     <!-- Search -->
-    <input type="text" class="search-bar" placeholder="Search...">
-
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <button onclick="sortProducts()">Sort</button>
-      <button onclick="filterProducts()">Filter</button>
-      <button onclick="groupProducts()">Group By</button>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search your purchases..." onkeyup="searchProducts()">
     </div>
 
     <!-- Product Listings -->
@@ -127,17 +175,33 @@
         <p>Seller: Jane Smith</p>
       </div>
     </div>
+
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-info">
+        <h4>Organic Cotton Bag</h4>
+        <p>Price: ₹300</p>
+        <p>Category: Fashion</p>
+        <p>Seller: Eco World</p>
+      </div>
+    </div>
   </div>
 
   <script>
-    function sortProducts() {
-      alert("Sorting products...");
-    }
-    function filterProducts() {
-      alert("Filtering products...");
-    }
-    function groupProducts() {
-      alert("Grouping products...");
+    function searchProducts() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const products = document.querySelectorAll(".product-card");
+
+      products.forEach(card => {
+        const title = card.querySelector("h4").textContent.toLowerCase();
+        const details = card.querySelector(".product-info").textContent.toLowerCase();
+
+        if (title.includes(input) || details.includes(input)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
     }
   </script>
 
