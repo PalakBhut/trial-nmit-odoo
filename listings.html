@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoFinds - My Listings</title>
+  <link rel="stylesheet" href="style.css"> <!-- reuse your css -->
+  <style>
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cart-icon {
+      width: 32px;
+      height: 32px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1170/1170678.png') no-repeat center/cover;
+      cursor: pointer;
+    }
+    .add-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+      background: #2E7D32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 1rem;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+      outline: none;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .action-buttons button {
+      flex: 1;
+      margin: 0 0.3rem;
+      padding: 0.6rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      background: #2E7D32;
+      color: white;
+      cursor: pointer;
+    }
+    .action-buttons button:hover {
+      background: #1b5e20;
+    }
+    .product-card {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #fff;
+    }
+    .product-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      background: #ccc url('https://cdn-icons-png.flaticon.com/512/679/679922.png') no-repeat center/cover;
+      margin-right: 1rem;
+    }
+    .product-info {
+      text-align: left;
+    }
+    .product-info h4 {
+      margin-bottom: 0.3rem;
+      color: #2E7D32;
+    }
+    .product-info p {
+      font-size: 0.9rem;
+      margin: 2px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h2 style="color:#2E7D32;">EcoFinds</h2>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <button class="add-btn" onclick="addNewProduct()">+ Add new</button>
+        <div class="cart-icon"></div>
+      </div>
+    </div>
+
+    <!-- Page Title -->
+    <h3 style="margin-bottom:1rem;">My Listings</h3>
+
+    <!-- Search -->
+    <input type="text" class="search-bar" placeholder="Search...">
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button onclick="sortProducts()">Sort</button>
+      <button onclick="filterProducts()">Filter</button>
+      <button onclick="groupProducts()">Group By</button>
+    </div>
+
+    <!-- Product Listings -->
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-info">
+        <h4>Wooden Chair</h4>
+        <p>Price: ₹1500</p>
+        <p>Category: Furniture</p>
+        <p>Status: Active</p>
+        <p>Seller: John Doe</p>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-info">
+        <h4>Eco Bottle</h4>
+        <p>Price: ₹250</p>
+        <p>Category: Kitchen</p>
+        <p>Status: Sold</p>
+        <p>Seller: Eco Store</p>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-info">
+        <h4>Bamboo Lamp</h4>
+        <p>Price: ₹900</p>
+        <p>Category: Decor</p>
+        <p>Status: Active</p>
+        <p>Seller: Jane Smith</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+   
+  function addNewProduct() {
+    window.location.href = "add-listings.html"; // ✅ redirect to new page
+  }
+
+    function sortProducts() {
+      alert("Sorting products...");
+    }
+    function filterProducts() {
+      alert("Filtering products...");
+    }
+    function groupProducts() {
+      alert("Grouping products...");
+    }
+  </script>
+
+</body>
+</html>

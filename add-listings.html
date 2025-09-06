@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Product</title>
+  <link rel="stylesheet" href="style.css"> <!-- Your CSS -->
+  <style>
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 1rem;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cart-icon {
+      width: 32px;
+      height: 32px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1170/1170678.png') no-repeat center/cover;
+      cursor: pointer;
+    }
+    form {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      background: #fff;
+    }
+    label {
+      display: block;
+      margin: 0.6rem 0 0.2rem;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .checkbox-group input {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+    .image-upload {
+      width: 100%;
+      height: 150px;
+      border: 2px dashed #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: #2E7D32;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #1b5e20;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h2 style="color:#2E7D32;">EcoFinds</h2>
+      <div class="cart-icon" onclick="window.location.href='cart.html'"></div>
+
+    </div>
+
+    <!-- Title -->
+    <h3 style="margin-bottom:1rem;">Add a new Product</h3>
+
+    <!-- Add Product Form -->
+    <form>
+      <div class="image-upload">+ Add product Image</div>
+
+      <label>Product Title</label>
+      <input type="text" required>
+
+      <label>Product Category</label>
+      <input type="text">
+
+      <label>Product Description</label>
+      <textarea rows="3"></textarea>
+
+      <label>Price</label>
+      <input type="number">
+
+      <label>Quantity</label>
+      <input type="number">
+
+      <label>Condition</label>
+      <select>
+        <option>New</option>
+        <option>Used</option>
+        <option>Refurbished</option>
+      </select>
+
+      <label>Year of Manufacture</label>
+      <input type="number">
+
+      <label>Brand</label>
+      <input type="text">
+
+      <label>Model</label>
+      <input type="text">
+
+      <label>Dimensions (L x W x H)</label>
+      <input type="text">
+
+      <label>Weight</label>
+      <input type="text">
+
+      <label>Material</label>
+      <input type="text">
+
+      <label>Color</label>
+      <input type="text">
+
+      <div class="checkbox-group">
+        <input type="checkbox"> Original Packaging
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox"> Manual/Instructions Included
+      </div>
+
+      <label>Working Condition Description</label>
+      <textarea rows="3"></textarea>
+
+      <button type="submit" class="submit-btn">Add Item</button>
+    </form>
+  </div>
+
+</body>
+</html>

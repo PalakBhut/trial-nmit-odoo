@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart - EcoFinds</title>
+  <link rel="stylesheet" href="style.css"> <!-- your main CSS -->
+  <style>
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 1rem;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cart-item {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      background: #fff;
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #2E7D32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .checkout-btn:hover {
+      background: #1b5e20;
+    }
+    .profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h2 style="color:#2E7D32;">EcoFinds</h2>
+<img src="logo.jpeg" alt="Logo" class="profile-icon">
+    </div>
+
+    <!-- Title -->
+    <h3 style="margin-bottom:1rem;">Cart Page</h3>
+
+    <!-- Cart Items -->
+    <div class="cart-item">Product 1 - ₹1000</div>
+    <div class="cart-item">Product 2 - ₹500</div>
+    <div class="cart-item">Product 3 - ₹250</div>
+    <div class="cart-item">Product 4 - ₹750</div>
+
+    <!-- Total -->
+    <div class="cart-total">
+      <span>Total price to pay:</span>
+      <span>Rs. 2,500</span>
+    </div>
+
+    <!-- Checkout -->
+    <button class="checkout-btn">Checkout</button>
+  </div>
+
+</body>
+</html>
